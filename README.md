@@ -4,6 +4,8 @@ This README describes how **camera calibration** can be performed on the Duckieb
 
 (The tools and procedures have been adapted from [the official Duckietown camera calibration](https://docs.duckietown.com/daffy/opmanual-duckiebot/operations/calibration_camera/index.html) documentation and code.)
 
+The calibration procedures can be stopped at any time (e.g. `Ctrl+C` in respective terminals) and restarted again. It is safe to do so.
+
 ## Prerequisites
 ***All terminal commands*** in this README are issued from the `main-workspace` (so on the Duckiebot, within the `main-workspace` Docker container). Since there will be graphical apps, it's recommended you connect to your robot's remote desktop **via VNC** and run the commands in there.
 
@@ -99,7 +101,7 @@ Actions:
     * show the pattern with different flatness angles (Skew)
     * use different distances to the camera (Size)
 
-1. Once the criteria match as described above, you can click the "Calibrate" button.
+1. Once the criteria match as described above, you can click, ***NOTE: ONLY ONCE!!***, the "Calibrate" button.
     * The camera stream would freeze. You should check the Terminal that launched the calibrator for the progress.
 
         ```
@@ -201,7 +203,7 @@ After being properly placed, no movement is needed during the calibration.
     ```
     # >>> Example terminal logs (DO NOT RUN these)
 
-    Extrinsics calibration:
+    Extrinsics calibration to be saved:
     -----------------------
 
     homography:

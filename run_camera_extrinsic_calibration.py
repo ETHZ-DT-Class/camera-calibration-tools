@@ -168,9 +168,11 @@ class CameraExtrinsicsCalibration:
             self._on_save()
         # stop printing
         self._quiet = True
-        # print calibration
-        H_str: str = yaml.safe_dump({'homography': self._H.flatten().tolist()})
-        print(f"Extrinsics calibration:\n-----------------------\n\n{H_str}\n\n-----------------------\n")
+
+        # # print calibration
+        # H_str: str = yaml.safe_dump({'homography': self._H.flatten().tolist()})
+        # print(f"Extrinsics calibration:\n-----------------------\n\n{H_str}\n\n-----------------------\n")
+
         # convert to resolution independent
         H_rd: ResolutionDependentHomography = ResolutionDependentHomography.read(self._H)
         H_ri: ResolutionIndependentHomography = H_rd.camera_independent(self._camera)
@@ -351,6 +353,9 @@ class CameraExtrinsicsCalibrationNode:
         Hdep: ResolutionDependentHomography = Hindep.camera_specific(self._camera)
         
         H = Hdep @ self._camera.homography_pixel2vector()
+
+        H_str: str = yaml.safe_dump({'homography': H.flatten().tolist()})
+        print(f"Extrinsics calibration to be saved:\n-----------------------\n\n{H_str}\n\n-----------------------\n")
         
         # --- use Duckiebot's Files API to manipulate files
         # create URL
