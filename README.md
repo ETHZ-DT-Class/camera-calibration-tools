@@ -100,8 +100,18 @@ Actions:
     * use different distances to the camera (Size)
 
 1. Once the criteria match as described above, you can click the "Calibrate" button.
-    * The camera stream would freeze briefly.
-    * In about a minute, try to move the calibration GUI window a little bit with mouse. The stream should already be active again.
+    * The camera stream would freeze. You should check the Terminal that launched the calibrator for the progress.
+
+        ```
+        **** Calibating ****
+        mono pinhole calibration...
+        
+        (wait for a few minutes)
+        D = [...
+        K = [...
+        ```
+
+    * When you see the calibrated matrices being printed in the terminal, try to move the calibration GUI window a little bit with mouse. The stream should already be active again.
     * Now put the calibration pattern in front of the camera again, and you should see the pattern looks more like straight, parallel lines.
 
 #### Illustration images
