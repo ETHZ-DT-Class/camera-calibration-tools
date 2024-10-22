@@ -22,10 +22,7 @@ This README describes how **camera calibration** can be performed on the Duckieb
 
     # b. install libs needed
     pip install -U pip
-    pip install -r requirements.txt
-
-    # c. remove conflicting libs
-    pip uninstall opencv-python-headless
+    pip install --no-deps "lib-dt-computer-vision==0.1.8"
     ```
 
 1. Prepare apt / ROS dependencies
@@ -48,6 +45,9 @@ To estimate the intrinsic parameters.
     python3 decoder_node.py
 
     # this should be left running during INTRINSIC calibration
+
+    # >>> Expected Log
+    # [decoder_node] Received first image on: /YOUR_ROBOT_HOSTNAME/camera_node/image/compressed
     ```
 
 1. Verify the decoded stream with `rqt` -> `Plugins` -> `Visualization` -> `Image View`
@@ -60,7 +60,7 @@ To estimate the intrinsic parameters.
 
     ```
     # reload ROS environment to ensure newly installed packages are found
-    source /opt/ros/noetic.setup.bash
+    source /opt/ros/noetic/setup.bash
 
     # start the calibration program (3 lines as the same command)
     rosrun camera_calibration cameracalibrator.py --size 7x5 --square 0.031 \
@@ -72,7 +72,7 @@ To estimate the intrinsic parameters.
 
 **Expected outcome**
 
-In the VNC remote desktop, there should be a window that popped up, with a preview of your robot's camera stream (at a reduced update frequency).
+In the VNC remote desktop, there should be a window that popped up, with a preview of your robot's camera stream (at a reduced update frequency). Please **maximize** this window.
 
 Read the next section before you start using the calibration pattern!
 

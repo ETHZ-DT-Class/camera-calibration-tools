@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
 import rospy
+# reason to keep: https://answers.ros.org/question/362388/cv_bridge_boost-raised-unreported-exception-when-importing-cv_bridge/
 import cv2
+import os
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image, CompressedImage
 
 
-TOPIC_IN = "/autobot01/camera_node/image/compressed"
-TOPIC_OUT = "/autobot01/camera_node/image/raw"
+VEHICLE_NAME = os.environ.get("VEHICLE_NAME")
+TOPIC_IN = f"/{VEHICLE_NAME}/camera_node/image/compressed"
+TOPIC_OUT = f"/{VEHICLE_NAME}/camera_node/image/raw"
 
 
 class DecoderNode:
@@ -32,6 +35,9 @@ class DecoderNode:
         # Storage for the latest image message
         self.latest_image_msg = None
 
+        # Flag for initial log
+        self._received_first_image = False
+
         # subscribers
         self.sub_img = rospy.Subscriber(
             # "~image_in", CompressedImage, self.cb_image, queue_size=1, buff_size=10*1024*1024
@@ -44,6 +50,10 @@ class DecoderNode:
     def cb_image(self, msg):
         # Store the latest image message
         self.latest_image_msg = msg
+        # Log once
+        if not self._received_first_image:
+            self._received_first_image = True
+            print("[decoder_node] Received first image on:", TOPIC_IN)
 
     def timer_callback(self, event):
         # Publish the latest image message if there are subscribers
